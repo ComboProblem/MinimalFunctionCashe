@@ -1,0 +1,19 @@
+Bootstrap: docker
+From: python:3.11.8-slim-bookworm
+
+%post
+    apt-get update -y
+    apt-get install -y pip git
+    git clone --branch Removing-SetupTools https://github.com/ComboProblem/cutgeneratingfunctionology.git cutgeneratingfunctionology
+    apt-get clean
+    cd cutgeneratingfunctionology
+    python -m venv /cgf-venv/venv
+    /cgf-venv/venv/bin/pip install ".[passagemath]"
+
+%environment
+   export PATH=cutgeneratingfunctionology/app/venv/bin:$PATH
+
+%startscript
+   cd /cutgeneratingfunctionology/
+   source /cgf-venv/venv/bin/activate
+   sage
