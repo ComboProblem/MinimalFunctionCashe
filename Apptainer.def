@@ -13,7 +13,10 @@ From: python:3.11.8-slim-bookworm
 %environment
    export PATH=cutgeneratingfunctionology/app/venv/bin:$PATH
 
-%startscript
-   cd /cutgeneratingfunctionology/
-   source /cgf-venv/venv/bin/activate
-   sage
+# the enviroment set up above lets us activate the virtual enviroment. The commands can be ran in shell to start sage.
+# an error is thown when trying to use runscript or startscript (source: not found). 
+#  otherwise, if ran as a shell, one can cd into cgf and activate sagemath
+# %runscript
+#   cd /cutgeneratingfunctionology/
+#   source /cgf-venv/venv/bin/activate
+#   sage
