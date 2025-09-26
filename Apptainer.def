@@ -1,22 +1,15 @@
 Bootstrap: docker
-From: python:3.11.8-slim-bookworm
+From: ubuntu:24.04
 
-%post
+%post -c /bin/bash
     apt-get update -y
-    apt-get install -y pip git
+    apt-get install -y pip git python3.12-full
     git clone --branch Removing-SetupTools https://github.com/ComboProblem/cutgeneratingfunctionology.git cutgeneratingfunctionology
     apt-get clean
     cd cutgeneratingfunctionology
-    python -m venv /cgf-venv/venv
-    /cgf-venv/venv/bin/pip install ".[passagemath]"
+    python3 -m venv /cgf-venv/venv
+    source /cgf-venv/venv/bin/activate
+    pip install ".[passagemath]"
 
 %environment
-   export PATH=cutgeneratingfunctionology/app/venv/bin:$PATH
-
-# the enviroment set up above lets us activate the virtual enviroment. The commands can be ran in shell to start sage.
-# an error is thown when trying to use runscript or startscript (source: not found). 
-#  otherwise, if ran as a shell, one can cd into cgf and activate sagemath
-# %runscript
-#   cd /cutgeneratingfunctionology/
-#   source /cgf-venv/venv/bin/activate
-#   sage
+   source /cgf-venv/venv/bin/activate
